@@ -28,7 +28,7 @@ const Quiz = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Тест по теме: {id}</h1>
+      <h1 className="text-2xl font-bold mb-4 ">Topic's test {id}</h1>
 
       {loading ? (
         <p>Download...</p>
