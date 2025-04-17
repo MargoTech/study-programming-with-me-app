@@ -6,14 +6,16 @@ const topics = [
     title: "HTML for beginners",
     image: "https://cdn-icons-png.flaticon.com/512/732/732212.png",
   },
-  { id: "css", 
-    title: "Basic CSS", 
-    image:"https://cdn-icons-png.flaticon.com/512/732/732190.png",
-    {
-      id: "js",
-      title: "Basic JavaScript",
-      image: "https://cdn-icons-png.flaticon.com/512/5968/5968292.png", // JS icon
-    },
+  {
+    id: "css",
+    title: "Basic CSS",
+    image: "https://cdn-icons-png.flaticon.com/512/732/732190.png",
+  },
+  {
+    id: "js",
+    title: "Basic JavaScript",
+    image: "https://cdn-icons-png.flaticon.com/512/5968/5968292.png",
+  },
 ];
 
 const Topics = () => {
