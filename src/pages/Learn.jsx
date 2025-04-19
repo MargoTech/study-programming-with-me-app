@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Learn = () => {
   const { id } = useParams();
@@ -30,8 +31,16 @@ const Learn = () => {
     );
   }
 
+  const { title, content } = lessons[id];
+
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <motion.div
+      className="p-6 max-w-2xl mx-auto"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <button onClick={() => navigate(-1)}>Home</button>
       <h1 className="text-2xl font-bold mb-4">Topic: {id.toUpperCase()}</h1>
       <h2 className="text-xl font-semibold mb-2">{lessons[id]?.title}</h2>
       <p className="text-gray-700 mb-6">{lessons[id]?.content}</p>
@@ -41,7 +50,7 @@ const Learn = () => {
       >
         Test
       </button>
-    </div>
+    </motion.div>
   );
 };
 
