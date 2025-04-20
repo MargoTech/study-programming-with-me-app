@@ -5,6 +5,10 @@ const Quiz = () => {
   const { id } = useParams();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const fetchQUestions = async () => {
@@ -12,7 +16,21 @@ const Quiz = () => {
         console.log(`Download quiestions about ${id}`);
 
         const mockQuestions = [
-          { question: "What is HTML?", options: [], answer: 0 },
+          {
+            question: "What does HTML stand for?",
+            options: [
+              "Hyper Text Markup Language",
+              "Hot Mail",
+              "How To Make Lasagna",
+              "Hyper Tool Multi Link",
+            ],
+            answer: 0,
+          },
+          {
+            question: "What tag is used to create a link in HTML?",
+            options: ["<img>", "<a>", "<link>", "<href>"],
+            answer: 1,
+          },
         ];
 
         setQuestions(mockQuestions);
@@ -25,6 +43,37 @@ const Quiz = () => {
 
     fetchQUestions();
   }, [id]);
+
+  const handleOptionClick = (index) => {
+    setSelectedOption(index);
+    if (index === questions[currentIndex].answer) {
+      setScore((prev) => prev + 1);
+    }
+  };
+
+  const handleNext = () => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < questions.length) {
+      setCurrentIndex(nextIndex);
+      setSelectedOption(null);
+    } else {
+      setShowResult(true);
+    }
+  };
+
+  if (showResult) {
+    return (
+      <div className="p-6 max-w-xl mx-auto text-center">
+        <h1 className="text-2xl font-bold mb-4">Test completed!</h1>
+        <p className="text-lg mb-2">
+          Your score: {score} out of {questions.length}
+        </p>
+        <p className="text-sm text-gray-500">Topic: {id.toUpperCase()}</p>
+      </div>
+    );
+  }
+
+  const current = questions[currentIndex];
 
   return (
     <div>

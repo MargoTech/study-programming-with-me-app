@@ -40,7 +40,15 @@ const Learn = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <button onClick={() => navigate(-1)}>Home</button>
+      {/* Back */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 text-blue-600 hover:underline"
+      >
+        ← Home
+      </button>
+
+      {/* Content */}
       <h1 className="text-2xl font-bold mb-4">Topic: {id.toUpperCase()}</h1>
       <h2 className="text-xl font-semibold mb-2">{lessons[id]?.title}</h2>
       <p className="text-gray-700 mb-6">{lessons[id]?.content}</p>
