@@ -61,6 +61,10 @@ const Quiz = () => {
     }
   };
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   if (showResult) {
     return (
       <div className="p-6 max-w-xl mx-auto text-center">
@@ -76,13 +80,37 @@ const Quiz = () => {
   const current = questions[currentIndex];
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4 ">Topic's test {id}</h1>
+    <div className="p-6 max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4 ">
+        Topic's test {id.toUpperCase()}
+      </h1>
+      <h2 className="text-lg font-medium mb-4">{current.question}</h2>
+      <div className="grid gap-3">
+        {current.options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() => handleOptionClick(index)}
+            className={`px-4 py-2 rounded border text-left transition ${
+              selectedOption === index
+                ? index === current.answer
+                  ? "bg-green-300 border-green-500"
+                  : "bg-red-300 border-red-500"
+                : "hover:bg-blue-100 border-gray-300"
+            }`}
+            disabled={selectedOption !== null}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
 
-      {loading ? (
-        <p>Download...</p>
-      ) : (
-        <pre>{JSON.stringify(questions, null, 2)}</pre>
+      {selectedOption !== null && (
+        <button
+          onClick={handleNext}
+          className="mt-6 bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          {currentIndex + 1 < questions.length ? "Next" : "Show Result"}
+        </button>
       )}
     </div>
   );
