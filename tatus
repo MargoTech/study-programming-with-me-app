@@ -1,0 +1,107 @@
+[33mcommit dbef841ce958041ff2a9971802e5077c35117d15[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Mon Apr 21 21:11:24 2025 +0200
+
+    Working with Quiz.jsx. Adding css, buttons etc
+
+[33mcommit a74c14017bea5dbd776060abb78e243de305d540[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Sun Apr 20 20:20:06 2025 +0000
+
+    Working with Quiz.jsx
+
+[33mcommit a38a0948338f6290836fdf62661072076dfe9cdf[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Sat Apr 19 22:33:46 2025 +0000
+
+    and Adding framer-motion
+
+[33mcommit 4c7477f9def7f582216f3b471bb2ef7f288a71c6[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Sat Apr 19 22:59:51 2025 +0100
+
+    working with Learn.jsx
+
+[33mcommit ed04467afa01d8dce99fdc7427bca4f200a46fb2[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Fri Apr 18 19:27:28 2025 +0100
+
+    Adding framer-motion
+
+[33mcommit 10129bbc19388bcf222afbe6f9ae6a22c55ce745[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Thu Apr 17 23:58:56 2025 +0100
+
+    Fixing bug
+
+[33mcommit dd9c225a907a3f0f9b22f2fb8bcc94715134b596[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Thu Apr 17 23:56:39 2025 +0100
+
+    Working with styles scc
+
+[33mcommit 7d194e3dfea11e3888ef19de4e6eb16c7faceb0b[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Wed Apr 16 18:28:27 2025 +0100
+
+    Working with stiles in Topic.jsx
+
+[33mcommit 565b7a4b0effba19fd299b652631ae7f3a3879d6[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Tue Apr 15 19:54:39 2025 +0100
+
+    changing main.jsx
+
+[33mcommit 6569087c1c421a6c7aebf2e83a146c4313fae4fb[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Mon Apr 14 19:25:39 2025 +0100
+
+    Working with Quiz.jsx
+
+[33mcommit 95c1dc6c377bbbb1e0eb6b4f7204e125815f1d73[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Sun Apr 13 23:37:05 2025 +0100
+
+    Adding Quiz.jsx
+
+[33mcommit b6ba61b12492d64c72fd723ce74ee9507f60325f[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Sat Apr 12 18:51:24 2025 +0200
+
+    Adding MainLayout.jsx
+
+[33mcommit db72f5067e733dd3f834dd904b2389058f9d16a8[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Fri Apr 11 23:19:07 2025 +0200
+
+    Adding App.jsx
+
+[33mcommit 39db2030cf7b926545969a715c060e6960bafefa[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Thu Apr 10 17:28:36 2025 +0200
+
+    Adding Learn.jsx
+
+[33mcommit 54619e926394084e1982a262bd56c2730441b9af[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Wed Apr 9 21:43:06 2025 +0200
+
+    Adding Topics.jsx
+
+[33mcommit a62b296067082d174fe339b43fa61ba9e5886be9[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Tue Apr 8 23:51:37 2025 +0200
+
+    Creating structure
+
+[33mcommit 4d62480af64168e3fcfbd48ac4ac738ac4d83203[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Tue Apr 8 23:40:51 2025 +0200
+
+    Adding ChatBox.jsx
+
+[33mcommit 279216010bc0e0050e4ac33aeb71a1d3e2a534cb[m
+Author: MargoTech <margobartashevich@gmail.com>
+Date:   Tue Apr 8 22:21:29 2025 +0200
+
+    Initial commit
