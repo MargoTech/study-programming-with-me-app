@@ -9,9 +9,10 @@ const Quiz = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchQUestions = async () => {
+    const fetchQuestions = async () => {
       try {
         console.log(`Download quiestions about ${id}`);
 
@@ -65,6 +66,10 @@ const Quiz = () => {
     return <p>Loading...</p>;
   }
 
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   if (showResult) {
     return (
       <div className="p-6 max-w-xl mx-auto text-center">
@@ -78,6 +83,23 @@ const Quiz = () => {
   }
 
   const current = questions[currentIndex];
+
+  const generateButtonClass = (index) => {
+    let buttonClass = "px-4 py-2 rounded border text-left transition";
+
+    if (selectedOption !== null) {
+      buttonClass +=
+        selectedOption === index
+          ? index === current.answer
+            ? " bg-green-300 border-green-500"
+            : " bg-red-300 border-red-500"
+          : "";
+    } else {
+      buttonClass += " hover:bg-blue-100 border-gray-300";
+    }
+
+    return buttonClass;
+  };
 
   return (
     <div className="p-6 max-w-xl mx-auto">
