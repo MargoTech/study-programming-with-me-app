@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "framer-motion": "^12.7.4",
+    "node-fetch": "^3.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.0"
@@ -28,5 +32,18 @@
     "postcss": "^8.5.3",
     "tailwindcss": "^3.3.5",
     "vite": "^6.2.0"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MargoTech/study-programming-with-me-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MargoTech/study-programming-with-me-app/issues"
+  },
+  "homepage": "https://github.com/MargoTech/study-programming-with-me-app#readme"
 }

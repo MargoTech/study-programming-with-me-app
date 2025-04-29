@@ -12,38 +12,26 @@ const Quiz = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
+    const fetchData = async () => {
       try {
-        console.log(`Download quiestions about ${id}`);
+        const res = await fetch(`http://localhost:3001/api/data/${id}`);
 
-        const mockQuestions = [
-          {
-            question: "What does HTML stand for?",
-            options: [
-              "Hyper Text Markup Language",
-              "Hot Mail",
-              "How To Make Lasagna",
-              "Hyper Tool Multi Link",
-            ],
-            answer: 0,
-          },
-          {
-            question: "What tag is used to create a link in HTML?",
-            options: ["<img>", "<a>", "<link>", "<href>"],
-            answer: 1,
-          },
-        ];
+        if (!res.ok) {
+          throw new Error("Failed to load questions");
+        }
 
-        setQuestions(mockQuestions);
-      } catch (error) {
-        console.error("Download mistake", error);
+        const data = await res.json();
+        console.log("Loaded data:", data);
+        setQuestions(data);
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchQUestions();
-  }, [id]);
+    fetchData();
+  }, []);
 
   const handleOptionClick = (index) => {
     setSelectedOption(index);
