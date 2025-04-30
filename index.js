@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import fetch from "node-fetch";
 
 dotenv.config();
 
@@ -16,7 +15,7 @@ const mockQuestions = {
       question: "What is HTML?",
       options: ["Markup", "Style", "Script", "Protocol"],
       answer: 0,
-    }
+    },
     {
       question: "What tag creates a hyperlink?",
       options: ["<link>", "<a>", "<href>", "<img>"],
@@ -42,18 +41,17 @@ app.get("/api/data/:topic", (req, res) => {
 
   const questions = mockQuestions[topic.toLowerCase()];
 
-//   try {
-//     const response = await fetch(
-//       `https://api.example.com/data?api_key=${API_KEY}`
-//     );
+  if (!questions) {
+    return res.status(404).json({ error: "Topic not found" });
+  }
 
-    if (!questions) {
-        return res.status(404).json({ error: "Topic not found" });
-      }
+  res.json(questions);
+});
 
-    res.json(questions);
+app.get("/", (req, res) => {
+  res.send("API is running...");
 });
 
 app.listen(PORT, () => {
-  console.log(`Proxy server running on http://localhost:${PORT}`);
+  console.log(`Mock API server running at http://localhost:${PORT}`);
 });

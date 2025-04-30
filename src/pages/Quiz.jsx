@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { fetchQuestionsByTopic } from "../services/api";
 
 const Quiz = () => {
   const { id } = useParams();
@@ -12,16 +13,9 @@ const Quiz = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadQuestions = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/api/data/${id}`);
-
-        if (!res.ok) {
-          throw new Error("Failed to load questions");
-        }
-
-        const data = await res.json();
-        console.log("Loaded data:", data);
+        const data = await fetchQuestionsByTopic(id);
         setQuestions(data);
       } catch (err) {
         setError(err.message);
@@ -30,8 +24,8 @@ const Quiz = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    loadQuestions();
+  }, [id]);
 
   const handleOptionClick = (index) => {
     setSelectedOption(index);
@@ -55,7 +49,7 @@ const Quiz = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-red-600">{error}</p>;
   }
 
   if (showResult) {
@@ -71,23 +65,6 @@ const Quiz = () => {
   }
 
   const current = questions[currentIndex];
-
-  const generateButtonClass = (index) => {
-    let buttonClass = "px-4 py-2 rounded border text-left transition";
-
-    if (selectedOption !== null) {
-      buttonClass +=
-        selectedOption === index
-          ? index === current.answer
-            ? " bg-green-300 border-green-500"
-            : " bg-red-300 border-red-500"
-          : "";
-    } else {
-      buttonClass += " hover:bg-blue-100 border-gray-300";
-    }
-
-    return buttonClass;
-  };
 
   return (
     <div className="p-6 max-w-xl mx-auto">
