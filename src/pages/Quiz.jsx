@@ -18,7 +18,14 @@ const Quiz = () => {
         const data = await fetchQuestionsByTopic(id);
         setQuestions(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "An unexpected error occurred");
+        if (err.availableTopics) {
+          setError(
+            `Topic not found. Available topics: ${err.availableTopics.join(
+              ", "
+            )}`
+          );
+        }
       } finally {
         setLoading(false);
       }

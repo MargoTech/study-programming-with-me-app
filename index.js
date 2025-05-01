@@ -42,7 +42,10 @@ app.get("/api/data/:topic", (req, res) => {
   const questions = mockQuestions[topic.toLowerCase()];
 
   if (!questions) {
-    return res.status(404).json({ error: "Topic not found" });
+    return res.status(404).json({
+      error: `Topic '${topic}' not found`,
+      availableTopics: Object.keys(mockQuestions),
+    });
   }
 
   res.json(questions);
