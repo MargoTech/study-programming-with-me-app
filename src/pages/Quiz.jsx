@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { fetchQuestionsByTopic } from "../services/api";
 import { motion } from "framer-motion";
 
@@ -98,6 +98,9 @@ const Quiz = () => {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
+      <p className="mb-2 text-sm text-gray-600 text-right">
+        Question {currentIndex + 1} of {questions.length}
+      </p>
       <div className="mb-4 w-full bg-gray-200 h-2 rounded overflow-hidden">
         <motion.div
           className="bg-blue-500 h-full"
