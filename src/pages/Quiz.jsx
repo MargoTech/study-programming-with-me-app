@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useReducer } from "react";
 import { fetchQuestionsByTopic } from "../services/api";
+import { motion } from "framer-motion";
 
 const quizReducer = (state, action) => {
   switch (action.type) {
@@ -98,10 +99,14 @@ const Quiz = () => {
   return (
     <div className="p-6 max-w-xl mx-auto">
       <div className="mb-4 w-full bg-gray-200 h-2 rounded overflow-hidden">
-        <div
-          className="bg-blue-500 h-full transition-all duration-300"
-          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
-        ></div>
+        <motion.div
+          className="bg-blue-500 h-full"
+          initial={{ width: 0 }}
+          animate={{
+            width: `${((currentIndex + 1) / questions.length) * 100}%`,
+          }}
+          transition={{ duration: 0.5 }}
+        ></motion.div>
       </div>
       <h1 className="text-2xl font-bold mb-4 ">
         Topic's test {id.toUpperCase()}
