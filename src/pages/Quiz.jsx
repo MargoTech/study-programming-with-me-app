@@ -1,33 +1,60 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { fetchQuestionsByTopic } from "../services/api";
+
+const quizReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_QUESTIONS":
+      return { ...state, questions: action.payload, loading: false };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    case "SET_ERROR":
+      return { ...state, error: action.payload, loading: false };
+    case "SET_SELECTED_OPTION":
+      return { ...state, selectedOption: action.payload };
+    case "INCREMENT_SCORE":
+      return { ...state, score: state.score + 1 };
+    case "INCREMENT_INDEX":
+      return { ...state, currentIndex: state.currentIndex + 1 };
+    case "SHOW_RESULT":
+      return { ...state, showResult: true };
+    default:
+      return state;
+  }
+};
+
+const initialState = {
+  questions: [],
+  loading: true,
+  currentIndex: 0,
+  selectedOption: null,
+  showResult: false,
+  score: 0,
+  error: null,
+};
 
 const Quiz = () => {
   const { id } = useParams();
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const [error, setError] = useState(null);
+  const [state, dispatch] = useReducer(quizReducer, initialState);
+
+  const {
+    questions,
+    loading,
+    currentIndex,
+    selectedOption,
+    showResult,
+    score,
+    error,
+  } = state;
 
   useEffect(() => {
     const loadQuestions = async () => {
+      dispatch({ type: "SET_LOADING", payload: true });
       try {
         const data = await fetchQuestionsByTopic(id);
-        setQuestions(data);
+        dispatch({ type: "SET_QUESTIONS", payload: data });
       } catch (err) {
-        setError(err.message || "An unexpected error occurred");
-        if (err.availableTopics) {
-          setError(
-            `Topic not found. Available topics: ${err.availableTopics.join(
-              ", "
-            )}`
-          );
-        }
-      } finally {
-        setLoading(false);
+        dispatch({ type: "SET_ERROR", payload: err.message });
       }
     };
 
@@ -35,38 +62,33 @@ const Quiz = () => {
   }, [id]);
 
   const handleOptionClick = (index) => {
-    setSelectedOption(index);
-    if (index === questions[currentIndex].answer) {
-      setScore((prev) => prev + 1);
+    dispatch({ type: "SET_SELECTED_OPTION", payload: index });
+    if (index === state.questions[currentIndex].answer) {
+      dispatch({ type: "INCREMENT_SCORE" });
     }
   };
 
   const handleNext = () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex < questions.length) {
-      setCurrentIndex(nextIndex);
-      setSelectedOption(null);
+      dispatch({ type: "INCREMENT_INDEX" });
+      dispatch({ type: "SET_SELECTED_OPTION", payload: null });
     } else {
-      setShowResult(true);
+      dispatch({ type: "SHOW_RESULT" });
     }
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="text-red-600">{error}</p>;
-  }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="text-red-600">{error}</p>;
 
   if (showResult) {
     return (
       <div className="p-6 max-w-xl mx-auto text-center">
-        <h1 className="text-2xl font-bold mb-4">Test completed!</h1>
-        <p className="text-lg mb-2">
-          Your score: {score} out of {questions.length}
+        <h2 className="text-2xl font-bold mb-4">Result</h2>
+        <p className="text-lg">
+          You scored <span className="font-bold">{score}</span> out of{" "}
+          <span className="font-bold">{questions.length}</span>
         </p>
-        <p className="text-sm text-gray-500">Topic: {id.toUpperCase()}</p>
       </div>
     );
   }
