@@ -97,6 +97,12 @@ const Quiz = () => {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
+      <div className="mb-4 w-full bg-gray-200 h-2 rounded overflow-hidden">
+        <div
+          className="bg-blue-500 h-full transition-all duration-300"
+          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+        ></div>
+      </div>
       <h1 className="text-2xl font-bold mb-4 ">
         Topic's test {id.toUpperCase()}
       </h1>
