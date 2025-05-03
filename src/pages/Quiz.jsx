@@ -48,6 +48,8 @@ const Quiz = () => {
     error,
   } = state;
 
+  const [timeLeft, setTimeLeft] = useState(15);
+
   useEffect(() => {
     const loadQuestions = async () => {
       dispatch({ type: "SET_LOADING", payload: true });
@@ -62,6 +64,22 @@ const Quiz = () => {
     loadQuestions();
   }, [id]);
 
+  useEffect(() => {
+    if (selectedOption !== null || showResult) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleNext();
+          return 15;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [currentIndex, selectedOption, showResult]);
+
   const handleOptionClick = (index) => {
     dispatch({ type: "SET_SELECTED_OPTION", payload: index });
     if (index === state.questions[currentIndex].answer) {
@@ -74,6 +92,7 @@ const Quiz = () => {
     if (nextIndex < questions.length) {
       dispatch({ type: "INCREMENT_INDEX" });
       dispatch({ type: "SET_SELECTED_OPTION", payload: null });
+      setTimeLeft(15);
     } else {
       dispatch({ type: "SHOW_RESULT" });
     }
@@ -110,6 +129,10 @@ const Quiz = () => {
           }}
           transition={{ duration: 0.5 }}
         ></motion.div>
+      </div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-medium">{current.question}</h2>
+        <span className="text-sm text-red-600 font-bold">⏳ {timeLeft}s</span>
       </div>
       <h1 className="text-2xl font-bold mb-4 ">
         Topic's test {id.toUpperCase()}
