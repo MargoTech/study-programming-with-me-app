@@ -65,6 +65,25 @@ const Quiz = () => {
   }, [id]);
 
   useEffect(() => {
+    if (showResult) {
+      const MAX_HISTORY = 20;
+
+      const history = JSON.parse(localStorage.getItem("quizHistory")) || [];
+
+      const newResult = {
+        topic: id,
+        score,
+        total: questions.length,
+        date: new Date().toISOString(),
+      };
+
+      const newHistory = [...history.slice(-MAX_HISTORY + 1), newResult];
+
+      localStorage.setItem("quizHistory", JSON.stringify(newHistory));
+    }
+  }, [showResult, id, score, questions.length]);
+
+  useEffect(() => {
     if (selectedOption !== null || showResult) return;
 
     const timer = setInterval(() => {
@@ -137,7 +156,6 @@ const Quiz = () => {
       <h1 className="text-2xl font-bold mb-4 ">
         Topic's test {id.toUpperCase()}
       </h1>
-      <h2 className="text-lg font-medium mb-4">{current.question}</h2>
       <div className="grid gap-3">
         {current.options.map((option, index) => (
           <button
