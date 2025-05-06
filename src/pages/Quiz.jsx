@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useReducer, useState } from "react";
 import { fetchQuestionsByTopic } from "../services/api";
 import { motion } from "framer-motion";
@@ -49,6 +49,8 @@ const Quiz = () => {
   } = state;
 
   const [timeLeft, setTimeLeft] = useState(15);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -128,6 +130,12 @@ const Quiz = () => {
           You scored <span className="font-bold">{score}</span> out of{" "}
           <span className="font-bold">{questions.length}</span>
         </p>
+        <button
+          onClick={() => navigate("/history")}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          📜 View History
+        </button>
       </div>
     );
   }
