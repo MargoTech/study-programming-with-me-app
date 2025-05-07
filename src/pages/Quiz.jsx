@@ -101,6 +101,20 @@ const Quiz = () => {
     return () => clearInterval(timer);
   }, [currentIndex, selectedOption, showResult]);
 
+  const restartQuiz = async () => {
+    dispatch({ type: "SET_LOADING", payload: true });
+    try {
+      const data = await fetchQuestionsByTopic(id);
+      dispatch({ type: "SET_QUESTIONS", payload: data });
+      dispatch({ type: "SET_SELECTED_OPTION", payload: null });
+      dispatch({ type: "SET_ERROR", payload: null });
+      dispatch({ type: "SHOW_RESULT", payload: false });
+      dispatch({ type: "INCREMENT_INDEX", payload: -state.currentIndex });
+    } catch (err) {
+      dispatch({ type: "SET_ERROR", payload: err.message });
+    }
+  };
+
   const handleOptionClick = (index) => {
     dispatch({ type: "SET_SELECTED_OPTION", payload: index });
     if (index === state.questions[currentIndex].answer) {
@@ -130,12 +144,20 @@ const Quiz = () => {
           You scored <span className="font-bold">{score}</span> out of{" "}
           <span className="font-bold">{questions.length}</span>
         </p>
-        <button
-          onClick={() => navigate("/history")}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          📜 View History
-        </button>
+        <div>
+          <button
+            onClick={() => navigate("/history")}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            📜 View History
+          </button>
+          <button
+            onClick={restartQuiz}
+            className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+          >
+            🔁 Try Again
+          </button>
+        </div>
       </div>
     );
   }
