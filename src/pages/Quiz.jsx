@@ -19,6 +19,12 @@ const quizReducer = (state, action) => {
       return { ...state, currentIndex: state.currentIndex + 1 };
     case "SHOW_RESULT":
       return { ...state, showResult: true };
+    case "RESET_QUIZ":
+      return {
+        ...initialState,
+        questions: action.payload,
+        loading: false,
+      };
     default:
       return state;
   }
@@ -105,11 +111,8 @@ const Quiz = () => {
     dispatch({ type: "SET_LOADING", payload: true });
     try {
       const data = await fetchQuestionsByTopic(id);
-      dispatch({ type: "SET_QUESTIONS", payload: data });
-      dispatch({ type: "SET_SELECTED_OPTION", payload: null });
-      dispatch({ type: "SET_ERROR", payload: null });
-      dispatch({ type: "SHOW_RESULT", payload: false });
-      dispatch({ type: "INCREMENT_INDEX", payload: -state.currentIndex });
+      dispatch({ type: "RESET_QUIZ", payload: data });
+      setTimeLeft(15);
     } catch (err) {
       dispatch({ type: "SET_ERROR", payload: err.message });
     }
@@ -138,7 +141,12 @@ const Quiz = () => {
 
   if (showResult) {
     return (
-      <div className="p-6 max-w-xl mx-auto text-center">
+      <motion.div
+        className="p-6 max-w-xl mx-auto text-center"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <h2 className="text-2xl font-bold mb-4">Result</h2>
         <p className="text-lg">
           You scored <span className="font-bold">{score}</span> out of{" "}
@@ -158,7 +166,7 @@ const Quiz = () => {
             🔁 Try Again
           </button>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
@@ -179,10 +187,17 @@ const Quiz = () => {
           transition={{ duration: 0.5 }}
         ></motion.div>
       </div>
-      <div className="flex justify-between items-center mb-4">
+      <motion.div
+        key={currentIndex}
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -30 }}
+        transition={{ duration: 0.3 }}
+        className="flex justify-between items-center mb-4"
+      >
         <h2 className="text-lg font-medium">{current.question}</h2>
         <span className="text-sm text-red-600 font-bold">⏳ {timeLeft}s</span>
-      </div>
+      </motion.div>
       <h1 className="text-2xl font-bold mb-4 ">
         Topic's test {id.toUpperCase()}
       </h1>
