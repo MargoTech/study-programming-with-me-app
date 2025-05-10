@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
-// import fetch from "node-fetch";
 import { progress } from "framer-motion";
 
 dotenv.config();
@@ -18,8 +17,10 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.get("/api/data/:topic", async (req, res) => {
-  const { topic } = req.params;
+app.get("/api/generate-questions", async (req, res) => {
+  const { topic } = req.body;
+
+  if (!topic) return res.status(400).json({ error: "Topic is required" });
 
   try {
     const completion = await openai.chat.completions.create({
@@ -41,11 +42,14 @@ app.get("/api/data/:topic", async (req, res) => {
 
     const responseText = completion.data.choices[0].message.content;
 
-    const jsonStart = responseText.indexOf("[");
-    const jsonEnd = responseText.lastIndexOf("]");
-    const json = JSON.parse(responseText.substring(jsonStart, jsonEnd + 1));
+    let questions;
+    try {
+      questions = JSON.parse(responseText);
+    } catch (err) {
+      return res.status(500).json({ error: "Failed to generate questions" });
+    }
 
-    res.json(json);
+    res.json(questions);
   } catch (error) {
     console.error("API Error:", error);
     res.status(500).json({ error: "Failed to generate questions" });

@@ -1,7 +1,7 @@
 const API_BASE_URL = "http://localhost:3001/api";
 
 export const fetchQuestionsByTopic = async (topic) => {
-  const response = await fetch(`${API_BASE_URL}/generate-questions`, {
+  const response = await fetch("http://localhost:3001/api/generate-questions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
