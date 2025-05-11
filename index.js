@@ -2,13 +2,25 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
-import { progress } from "framer-motion";
 
 dotenv.config();
 
+function extractJsonFromResponse(responseText) {
+  const cleaned = responseText
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (err) {
+    console.error("Failed to parse JSON from GPT response:", err);
+    throw new Error("Invalid JSON format from GPT");
+  }
+}
+
 const app = express();
 const PORT = process.env.PORT || 3001;
-// const API_KEY = progress.env.API_KEY;
 
 app.use(cors());
 app.use(express.json());
@@ -17,7 +29,15 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.get("/api/generate-questions", async (req, res) => {
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  if (req.method === "POST" || req.method === "PUT") {
+    console.log("Body:", req.body);
+  }
+  next();
+});
+
+app.post("/api/generate-questions", async (req, res) => {
   const { topic } = req.body;
 
   if (!topic) return res.status(400).json({ error: "Topic is required" });
@@ -44,7 +64,7 @@ app.get("/api/generate-questions", async (req, res) => {
 
     let questions;
     try {
-      questions = JSON.parse(responseText);
+      questions = extractJsonFromResponse(responseText);
     } catch (err) {
       return res.status(500).json({ error: "Failed to generate questions" });
     }
