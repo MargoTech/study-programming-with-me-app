@@ -31,13 +31,15 @@ const openai = new OpenAI({
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  if (req.method === "POST" || req.method === "PUT") {
-    console.log("Body:", req.body);
-  }
+  // if (req.method === "POST" || req.method === "PUT") {
+  //   console.log("Body:", req.body);
+  // }
   next();
 });
 
 app.post("/api/generate-questions", async (req, res) => {
+  console.log("🔥 GOT REQUEST TO /api/generate-questions");
+
   const { topic } = req.body;
 
   if (!topic) return res.status(400).json({ error: "Topic is required" });
@@ -76,9 +78,9 @@ app.post("/api/generate-questions", async (req, res) => {
   }
 });
 
-// app.get("/", (req, res) => {
-//   res.send("API is running...");
-// });
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

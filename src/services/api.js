@@ -1,6 +1,7 @@
 const API_BASE_URL = "http://localhost:3001/api";
 
 export const fetchQuestionsByTopic = async (topic) => {
+  console.log("📦 Sending topic to backend:", topic);
   const response = await fetch("http://localhost:3001/api/generate-questions", {
     method: "POST",
     headers: {
