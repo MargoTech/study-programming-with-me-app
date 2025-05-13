@@ -5,6 +5,8 @@ import OpenAI from "openai";
 
 dotenv.config();
 
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
+
 function extractJsonFromResponse(responseText) {
   const cleaned = responseText
     .replace(/```json/g, "")
@@ -31,16 +33,16 @@ const openai = new OpenAI({
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  // if (req.method === "POST" || req.method === "PUT") {
-  //   console.log("Body:", req.body);
-  // }
+  if (req.method === "POST" || req.method === "PUT") {
+    console.log("Body:", req.body);
+  }
   next();
 });
 
 app.post("/api/generate-questions", async (req, res) => {
-  console.log("🔥 GOT REQUEST TO /api/generate-questions");
-
   const { topic } = req.body;
+
+  console.log("🔥 GOT REQUEST TO /api/generate-questions");
 
   if (!topic) return res.status(400).json({ error: "Topic is required" });
 
