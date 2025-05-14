@@ -7,6 +7,8 @@ dotenv.config();
 
 console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
 
+console.log("🚀 Сервер загружается из файла index.js");
+
 function extractJsonFromResponse(responseText) {
   const cleaned = responseText
     .replace(/```json/g, "")
@@ -24,8 +26,20 @@ function extractJsonFromResponse(responseText) {
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5175",
+  })
+);
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -39,10 +53,13 @@ app.use((req, res, next) => {
   next();
 });
 
+console.log("✅ Готовим маршрут POST /api/generate-questions");
+
 app.post("/api/generate-questions", async (req, res) => {
   const { topic } = req.body;
 
-  console.log("🔥 GOT REQUEST TO /api/generate-questions");
+  console.log("📨 Запрос на /api/generate-questions");
+  console.log("🧾 Тело запроса:", req.body);
 
   if (!topic) return res.status(400).json({ error: "Topic is required" });
 
@@ -79,57 +96,3 @@ app.post("/api/generate-questions", async (req, res) => {
     res.status(500).json({ error: "Failed to generate questions" });
   }
 });
-
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173",
-//     methods: ["GET"],
-//   })
-// );
-
-// const mockQuestions = {
-//   html: [
-//     {
-//       question: "What is HTML?",
-//       options: ["Markup", "Style", "Script", "Protocol"],
-//       answer: 0,
-//     },
-//     {
-//       question: "What tag creates a hyperlink?",
-//       options: ["<link>", "<a>", "<href>", "<img>"],
-//       answer: 1,
-//     },
-//   ],
-//   css: [
-//     {
-//       question: "What does CSS stand for?",
-//       options: [
-//         "Colorful Style Syntax",
-//         "Cascading Style Sheets",
-//         "Computer Style Sheets",
-//         "Creative Style Sheet",
-//       ],
-//       answer: 1,
-//     },
-//   ],
-// };
-
-// const questions = mockQuestions[topic.toLowerCase()];
-
-//   if (!questions) {
-//     return res.status(404).json({
-//       error: `Topic '${topic}' not found`,
-//       availableTopics: Object.keys(mockQuestions),
-//     });
-//   }
-
-//   res.json(questions);
-// });
