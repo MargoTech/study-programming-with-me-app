@@ -1,20 +1,39 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+
 import MainLayout from "./layout/MainLayout";
+
 import Topics from "./pages/Topics";
 import Learn from "./pages/Learn";
 import Quiz from "./pages/Quiz";
-import QuizHistory from "./components/QuizHistory";
+import History from "./pages/History";
+import NotFound from "./pages/NotFound";
+
+const routes = [
+      {path="/", element=<Topics />}
+      {path="/learn/:id", element= <Learn />}
+      {path="/quiz/:id", element= <Quiz />}
+      {path="/history", element= <History />}
+      ]
+
+      return (
+        <AnimatePresence exitBeforeEnter>
+        <Routes location={location} key={location.pathname}>
+        {routes.map((route) =>
+        <Route key={route.path} path={route.path} element={route.element}
+        ))}
+        <Route path="*" element={<NotFound />} />
+</Routes> 
+        </AnimatePresence>
+      );
+    }
 
 function App() {
   return (
     <MainLayout>
-      <Routes>
-        <Route path="/" element={<Topics />} />
-        <Route path="/learn/:id" element={<Learn />} />
-        <Route path="/quiz/:id" element={<Quiz />} />
-        <Route path="/history" element={<QuizHistory />} />
-      </Routes>
+      <AppRoutes />
     </MainLayout>
+    
   );
 }
 
