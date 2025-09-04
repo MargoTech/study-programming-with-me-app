@@ -10,30 +10,32 @@ import History from "./pages/History";
 import NotFound from "./pages/NotFound";
 
 const routes = [
-      {path="/", element=<Topics />}
-      {path="/learn/:id", element= <Learn />}
-      {path="/quiz/:id", element= <Quiz />}
-      {path="/history", element= <History />}
-      ]
+  { path: "/", element: <Topics /> },
+  { path: "/learn/:id", element: <Learn /> },
+  { path: "/quiz/:id", element: <Quiz /> },
+  { path: "/history", element: <History /> },
+];
 
-      return (
-        <AnimatePresence exitBeforeEnter>
-        <Routes location={location} key={location.pathname}>
-        {routes.map((route) =>
-        <Route key={route.path} path={route.path} element={route.element}
+function AppRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence exitBeforeEnter>
+      <Routes location={location} key={location.pathname}>
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
         ))}
         <Route path="*" element={<NotFound />} />
-</Routes> 
-        </AnimatePresence>
-      );
-    }
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   return (
     <MainLayout>
       <AppRoutes />
     </MainLayout>
-    
   );
 }
 
