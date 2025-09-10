@@ -6,14 +6,14 @@ import MainLayout from "./layout/MainLayout";
 import Topics from "./pages/Topics";
 import Learn from "./pages/Learn";
 import Quiz from "./pages/Quiz";
-import History from "./pages/History";
+import QuizHistory from "./pages/QuizHistory";
 import NotFound from "./pages/NotFound";
 
 const routes = [
   { path: "/", element: <Topics /> },
   { path: "/learn/:id", element: <Learn /> },
   { path: "/quiz/:id", element: <Quiz /> },
-  { path: "/history", element: <History /> },
+  { path: "/QuizHistory", element: <QuizHistory /> },
 ];
 
 function AppRoutes() {

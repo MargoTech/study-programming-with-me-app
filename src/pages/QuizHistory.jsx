@@ -28,6 +28,11 @@ const QuizHistory = () => {
               <p className="text-sm text-gray-600">
                 Date: {new Date(item.date).toLocaleString()}
               </p>
+              {item.percentage && (
+                <p className="text-sm text-gray-600">
+                  Score: {item.percentage}% · Time: {item.duration || 0}s
+                </p>
+              )}
             </div>
             <div className="text-right">
               <p className="text-lg font-bold text-blue-600">
@@ -41,4 +46,4 @@ const QuizHistory = () => {
   );
 };
 
-export default History;
+export default QuizHistory;
