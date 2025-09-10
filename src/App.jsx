@@ -1,7 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import MainLayout from "./layout/MainLayout";
+
 import Topics from "./pages/Topics";
 import Learn from "./pages/Learn";
 import Quiz from "./pages/Quiz";
@@ -22,9 +23,34 @@ function AppRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.3 }}
+              >
+                {route.element}
+              </motion.div>
+            }
+          />
         ))}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.3 }}
+            >
+              <NotFound />
+            </motion.div>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
