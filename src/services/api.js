@@ -7,7 +7,7 @@ export const fetchQuestionsByTopic = async (topic) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ topic: "html" }),
+    body: JSON.stringify({ topic }),
   });
 
   if (!response.ok) {

@@ -1,5 +1,5 @@
-import { div } from "framer-motion/client";
 import { useEffect, useState } from "react";
+
 const QuizHistory = () => {
   const [history, setHistory] = useState([]);
 
@@ -41,4 +41,4 @@ const QuizHistory = () => {
   );
 };
 
-export default QuizHistory;
+export default History;

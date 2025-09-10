@@ -78,10 +78,15 @@ const Quiz = () => {
 
       const history = JSON.parse(localStorage.getItem("quizHistory")) || [];
 
+      const duration = questions.length * 15 - timeLeft;
+
       const newResult = {
+        id: Date.now(),
         topic: id,
         score,
         total: questions.length,
+        percentage: Math.round((score / questions.length) * 100),
+        duration,
         date: new Date().toISOString(),
       };
 
