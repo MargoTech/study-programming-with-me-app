@@ -42,7 +42,7 @@ const QuizHistory = () => {
           <option value="all">All topics</option>
           <option value="html">HTML</option>
           <option value="css">CSS</option>
-          <option value="JS">JavaScript</option>
+          <option value="js">JavaScript</option>
         </select>
       </div>
 
