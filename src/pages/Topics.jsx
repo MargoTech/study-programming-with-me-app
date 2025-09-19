@@ -22,37 +22,45 @@ const topics = [
   },
 ];
 
-const Topics = () => {
+export default function Topics() {
   const navigate = useNavigate();
 
   return (
-    <div className="p-6 grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-      {topics.map((topic, index) => (
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: index * 0.15 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          key={topic.id}
-          className={`bg-gradient-to-br ${topic.gradient} p-6 rounded-2xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 cursor-pointer`}
-          onClick={() => navigate(`/learn/${topic.id}`)}
-        >
-          <img
-            src={topic.image}
-            alt={topic.title}
-            className="w-20 h-20 object-contain mx-auto mb-4"
-          />
-          <h2 className="text-xl font-semibold text-center text-gray-800">
-            {topic.title}
-          </h2>
-          <p className="text-sm text-center text-gray-500 mt-2">
-            Click to start learning
-          </p>
-        </motion.div>
-      ))}
+    <div className="px-6 py-12 max-w-6xl mx-auto">
+      <h2 className="text-3xl font-extrabold text-center mb-12 text-gray-800">
+        🚀 Choose a Topic to Start
+      </h2>
+
+      <div className="p-6 grid gap-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        {topics.map((topic, index) => (
+          <motion.div
+            key={topic.id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.15 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate(`/learn/${topic.id}`)}
+            className={`cursor-pointer bg-gradient-to-br ${topic.gradient} 
+              rounded-3xl shadow-xl p-8 flex flex-col items-center
+              hover:shadow-2xl transition-all`}
+          >
+            <div className="w-28 h-28 mb-6 rounded-full bg-white/70 flex items-center justify-center shadow-inner">
+              <img
+                src={topic.image}
+                alt={topic.title}
+                className="w-20 h-20 object-contain mx-auto mb-4"
+              />
+            </div>
+            <h2 className="text-xl font-semibold text-center text-gray-800">
+              {topic.title}
+            </h2>
+            <p className="text-sm text-center text-gray-500 mt-3">
+              Click to start learning
+            </p>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
-};
-
-export default Topics;
+}
