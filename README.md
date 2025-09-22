@@ -30,12 +30,6 @@ An interactive platform that helps users stay consistent while learning programm
   <img src="https://your-screenshot-image.png" alt="Study App UI" width="600"/>
 </p>
 
-## 🧑‍💻 Getting Started
-
-To run the project locally:
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/study-programming-with-me.git
-cd study-programming-with-me
+## 📬 Contact
+Created with ❤️ by *MargoTech*  
+GitHub: [MargoTech](https://github.com/MargoTech)  
