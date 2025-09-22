@@ -203,9 +203,7 @@ const Quiz = () => {
         <h2 className="text-lg font-medium">{current.question}</h2>
         <span className="text-sm text-red-600 font-bold">⏳ {timeLeft}s</span>
       </motion.div>
-      <h1 className="text-2xl font-bold mb-4 ">
-        Topic's test {id.toUpperCase()}
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 capitalize">{id} Quiz</h1>
       <div className="grid gap-3">
         {current.options.map((option, index) => (
           <button
