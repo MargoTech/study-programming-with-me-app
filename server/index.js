@@ -17,3 +17,18 @@ app.get("/api/health", (req, res) => {
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
+
+const MOCK_QUESTIONS = [{ question: "Test?", options: ["A", "B"], answer: 0 }];
+
+try {
+  const questions = JSON.parse(text);
+  if (!Array.isArray(questions) || !questions.length) throw new Error();
+  res.json(questions);
+} catch {
+  res
+    .status(500)
+    .json({
+      error: "Failed to generate, returning fallback",
+      fallback: MOCK_QUESTIONS,
+    });
+}
