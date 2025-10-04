@@ -2,6 +2,8 @@ const API_BASE_URL = "http://localhost:3001/api";
 
 export const fetchQuestionsByTopic = async (topic) => {
   console.log("📦 Sending topic to backend:", topic);
+
+try {
   const response = await fetch("http://localhost:3001/api/generate-questions", {
     method: "POST",
     headers: {
@@ -9,10 +11,17 @@ export const fetchQuestionsByTopic = async (topic) => {
     },
     body: JSON.stringify({ topic }),
   });
+  const data = await response.json();
+
+  console.log("🧠 Response from backend:", data)
 
   if (!response.ok) {
     throw new Error("Failed to load questions");
   }
+
+}
+
+
 
   return response.json();
 };
